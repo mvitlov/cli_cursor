@@ -1,6 +1,6 @@
 name: cli_cursor
 description: Dart utility used to easily toggle the cursor inside command-line apps
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/mvitlov/cli_cursor
 issue_tracker: https://github.com/mvitlov/cli_cursor/issues?q=is%3Aissue+is%3Aopen+
 
