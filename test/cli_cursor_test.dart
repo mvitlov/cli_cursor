@@ -1,14 +1,13 @@
-import 'dart:io';
-
 import 'package:cli_cursor/cli_cursor.dart';
+import 'package:cli_cursor/writable_stream.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 const show = '\u001B[?25h';
 const hide = '\u001B[?25l';
 
-// Mock class for IOSink
-class MockIOSink extends Mock implements Stdout {
+// Mock class for WritableStream
+class MockIOSink extends Mock implements WritableStream {
   @override
   bool get hasTerminal => true;
 }
@@ -31,7 +30,6 @@ void main() {
 
     setUp(() {
       mockIOSink = MockIOSink();
-      when(() => mockIOSink.done).thenAnswer((_) async => null);
     });
 
     test('show', () {

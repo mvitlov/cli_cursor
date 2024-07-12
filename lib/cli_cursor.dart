@@ -3,6 +3,8 @@ library;
 
 import 'dart:io';
 
+import 'writable_stream.dart';
+
 /// A small utility class to make it easier to hide/show CLI cursor
 class CliCursor {
   /// Control flag
@@ -10,12 +12,11 @@ class CliCursor {
 
   ///	Show cursor
   ///
-  /// [writableStream] - Defaults to `stderr`.
-  static void show([IOSink? writableStream]) {
-    writableStream ??= stderr;
-    if (writableStream is! Stdout || !writableStream.hasTerminal) {
-      return;
-    }
+  /// [writableStream] - Defaults to [StdoutWritableStream].
+  static void show([WritableStream? writableStream]) {
+    writableStream ??= StdoutWritableStream();
+
+    if (!writableStream.hasTerminal) return;
 
     isHidden = false;
     writableStream.write('\u001B[?25h');
@@ -23,12 +24,11 @@ class CliCursor {
 
   ///	Hide cursor
   ///
-  /// [writableStream] - Defaults to `stderr`.
-  static void hide([IOSink? writableStream]) {
-    writableStream ??= stderr;
-    if (writableStream is! Stdout || !writableStream.hasTerminal) {
-      return;
-    }
+  /// [writableStream] - Defaults to [StdoutWritableStream].
+  static void hide([WritableStream? writableStream]) {
+    writableStream ??= StdoutWritableStream();
+
+    if (!writableStream.hasTerminal) return;
 
     isHidden = true;
     writableStream.write('\u001B[?25l');
@@ -39,15 +39,9 @@ class CliCursor {
   /// [force] - Is useful to show or hide the cursor based on a boolean.
   ///
   /// [writableStream] - Defaults to `stderr`.
-  static void toggle([bool? force, Stdout? writableStream]) {
-    if (force != null) {
-      isHidden = force;
-    }
+  static void toggle([bool? force, WritableStream? writableStream]) {
+    if (force != null) isHidden = force;
 
-    if (isHidden) {
-      show(writableStream);
-    } else {
-      hide(writableStream);
-    }
+    return isHidden ? show(writableStream) : hide(writableStream);
   }
 }
