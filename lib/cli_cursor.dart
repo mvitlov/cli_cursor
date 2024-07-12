@@ -1,8 +1,6 @@
 /// This library contains functionality to help toggle CLI cursor easily
 library;
 
-import 'dart:io';
-
 import 'writable_stream.dart';
 
 /// A small utility class to make it easier to hide/show CLI cursor
