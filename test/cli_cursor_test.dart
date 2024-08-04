@@ -1,5 +1,4 @@
 import 'package:cli_cursor/cli_cursor.dart';
-import 'package:cli_cursor/writable_stream.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
